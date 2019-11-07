@@ -6,8 +6,10 @@ pipeline {
                        label "build"
                 }
 			steps {
-				sleep 10
-                echo 'ETAPA BUILD EN UN NODO CON LABEL BUILD'
+				echo 'ETAPA BUILD EN UN NODO CON LABEL BUILD'
+				git 'https://github.com/kona81/Ejercicio_07112019.git'
+				bat 'mvn -B clean'
+				bat 'mvn -B compile'
                 }
         }
 		stage('QUALITY') {
@@ -15,8 +17,7 @@ pipeline {
                        label "quality"
                 }
 			steps {
-				sleep 10
-                echo 'Etapa Quality con un nodo con label quality'
+				echo 'Etapa Quality con un nodo con label quality'
                 }
         }
 		stage('DEPLOY') {
@@ -24,8 +25,7 @@ pipeline {
                        label "deploy"
                 }
 			steps {
-				sleep 10
-                echo 'Etapa deploy en un nodo con label deploy'
+				echo 'Etapa deploy en un nodo con label deploy'
                 }
         }
     }
