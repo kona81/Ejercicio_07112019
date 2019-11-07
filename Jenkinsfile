@@ -1,39 +1,32 @@
 pipeline {
     agent none
     stages {
-	
-	stage('Non-Parallel Stage') {
-	    agent {
-                        label "master"
+		stage('BUILD') {
+			agent {
+                       label "build"
                 }
-        steps {
-                echo 'This stage will be executed first'
+			steps {
+				sleep 10
+                echo 'ETAPA BUILD EN UN NODO CON LABEL BUILD'
                 }
         }
-
-	
-        stage('Run Tests') {
-            parallel {
-                stage('Test On Windows') {
-                   agent {
-                        label "mock"
-                    }
-                    steps {
-			    sleep 10
-                        echo "Task1 on Parallel"
-                    }
-                    
+		stage('QUALITY') {
+			agent {
+                       label "quality"
                 }
-                stage('Test On Master') {
-                    agent {
-                        label "win"
-                    }
-                    steps {
+			steps {
 				sleep 10
-			    echo "Task2 on Parallel"
-			}
+                echo 'Etapa Quality con un nodo con label quality'
                 }
-            }
+        }
+		stage('DEPLOY') {
+			agent {
+                       label "deploy"
+                }
+			steps {
+				sleep 10
+                echo 'Etapa deploy en un nodo con label deploy'
+                }
         }
     }
 }
